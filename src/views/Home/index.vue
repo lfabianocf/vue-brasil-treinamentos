@@ -1,6 +1,6 @@
 <template>
   <custom-header
-    @create-account="habdleAccountCreate"
+    @create-account="handleAccountCreate"
     @login="handleLogin"
   />
   <contact/>
@@ -14,11 +14,14 @@ import { onMounted } from '@vue/runtime-core'
 import { useRouter } from 'vue-router'
 import CustomHeader from './CustomHeader.vue'
 import Contact from './Contact.vue'
+import useModal from '../../hooks/useModal'
 
 export default {
   components: { CustomHeader, Contact },
   setup () {
     const router = useRouter()
+    const modal = useModal()
+
     onMounted(() => {
       const token = window.localStorage.getItem('token')
       if (token) {
@@ -27,15 +30,19 @@ export default {
     })
 
     function handleLogin () {
-
+      modal.open({
+        component: 'ModalLogin'
+      })
     }
-    function habdleAccountCreate () {
-
+    function handleAccountCreate () {
+      modal.open({
+        component: 'ModalCreateAccount'
+      })
     }
 
     return {
       handleLogin,
-      habdleAccountCreate
+      handleAccountCreate
     }
   }
 }
