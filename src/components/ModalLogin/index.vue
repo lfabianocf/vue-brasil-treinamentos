@@ -1,74 +1,115 @@
 <template>
-  <teleport to="body">
-    <div
-      v-if="state.isActive"
-      class="fixed top-0 left-0 z-50 flex items-center justify-center w-full h-full bg-black bg-opacity-50"
-      @click="handleModalToogle({ status: false })"
-    >
-      <div
-        class="fixed mx-10"
-        :class="state.width"
-        @click.stop
-      >
-        <div class="flex flex-col overflow-hidden bg-white rounded-lg animate__animated animate__fadeInDown animate__faster">
-          <div class="flex flex-col px-12 py-10 bg-white">
-            <component :is="state.component" />
-          </div>
-        </div>
+  <div class="flex justify-between">
+    <h1 class="text-4xl font-black text-gray-800">
+      Entre na sua Conta
+    </h1>
 
-      </div>
-    </div>
-  </teleport>
+    <button
+      @click="close"
+      class="text-4xl text-gray-600 focus:outline-none"
+    >
+      &times;
+    </button>
+  </div>
+
+  <div class="mt-16">
+    <form @submit.prevent="handleSubmit">
+      <label class="block">
+        <span class="text-lg font-medium text-gray-800">E-mail</span>
+        <input
+          v-model="state.email.value"
+          type="email"
+          :class="{
+            'border-brand-danger' : !!state.email.errorMessage
+          }"
+          class="block w-full px-4 py-3 mt-1 text-lg bg-bg-gray-100 border-2 border-transparent rounded"
+          placeholder="jane.dae@gmail.com"
+        >
+        <span
+        v-if="!!state.email.errorMessage"
+        class="block font-medium text-band-danger"
+        >
+          {{ state.email.errorMessage }}
+        </span>
+      </label>
+
+    <label class="block mt-9">
+        <span class="text-lg font-medium text-gray-800">Senha</span>
+        <input
+          id="password-field"
+          v-model="state.password.value"
+          type="password"
+          :class="{
+            'border-brand-danger': !!state.password.errorMessage
+          }"
+          class="block w-full px-4 py-3 mt-1 text-lg bg-gray-100 border-2 border-transparent rounded"
+          placeholder="jane.dae@gmail.com"
+        >
+        <span
+          v-if="!!state.password.errorMessage"
+          class="block font-medium text-brand-danger"
+        >
+          {{ state.password.errorMessage }}
+        </span>
+      </label>
+
+      <button
+        :disabled="state.isLoading"
+        type="submit"
+        :class="{
+          'opacity-50': state.isLoading
+        }"
+        class="px-8 py-3 mt-10 text-2xl font-bold text-white rounded-full bg-brand-main focus:lg:outline-none transition-all duration-150"
+      >
+        Entrar
+      </button>
+
+    </form>
+  </div>
+
 </template>
 
 <script>
-import { reactive, onMounted, onBeforeUnmount, defineAsyncComponent } from 'vue'
+import { reactive } from '@vue/reactivity'
+import { useField } from 'vee-validate'
 import useModal from '../../hooks/useModal'
-
-const ModalLogin = defineAsyncComponent(() => import('../ModalLogin'))
-const ModalAccountCreate = defineAsyncComponent(() => import('../ModalCreateAccount'))
-
-const DEFAULT_WIDTH = 'w-3/4 lg:w-1/3'
+import { validateEmptyAndLength3, validateEmptyAndEmail } from '../../utils/validators'
 
 export default {
-  components: {
-    ModalLogin,
-    ModalAccountCreate
-  },
   setup () {
     const modal = useModal()
+
+    const {
+      value: emailValue,
+      errorMessage: emailErroMessage
+    } = useField('email', validateEmptyAndEmail)
+
+    const {
+      value: passwordlValue,
+      errorMessage: passwordErroMessage
+    } = useField('password', validateEmptyAndLength3)
+
     const state = reactive({
-      isActive: false,
-      component: {},
-      props: {},
-      width: DEFAULT_WIDTH
-    })
-
-    onMounted(() => {
-      modal.listen(handleModalToogle)
-    })
-
-    onBeforeUnmount(() => {
-      modal.off(handleModalToogle)
-    })
-
-    function handleModalToogle (payload) {
-      if (payload.status) {
-        state.component = payload.component
-        state.props = payload.props
-        state.width = payload.width ?? DEFAULT_WIDTH
-      } else {
-        state.component = {}
-        state.props = {}
-        state.width = DEFAULT_WIDTH
+      hasErros: false,
+      isLoading: false,
+      email: {
+        value: emailValue,
+        errorMessage: emailErroMessage
+      },
+      password: {
+        value: passwordlValue,
+        errorMessage: passwordErroMessage
       }
+    })
 
-      state.isActive = payload.status
+    function handleSubmit () {
+
     }
 
     return {
       state,
-      handleModalToogle
+      close: modal.close,
+      handleSubmit
     }
   }
 }
