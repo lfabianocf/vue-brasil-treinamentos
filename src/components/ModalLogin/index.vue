@@ -27,7 +27,7 @@
         >
         <span
         v-if="!!state.email.errorMessage"
-        class="block font-medium text-band-danger"
+        class="block font-medium text-brand-danger"
         >
           {{ state.email.errorMessage }}
         </span>
