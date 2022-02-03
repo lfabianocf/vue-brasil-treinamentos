@@ -138,40 +138,45 @@ export default {
       }
     })
 
+    async function login ({ email, password }) {
+      const { data, errors } = await services.auth.login({ email, password })
+
+      if (!errors) {
+        window.localStorage.setItem('token', data.token)
+        router.push({ name: 'Feedbacks' })
+        modal.close()
+      }
+      state.isLoading = false
+    }
+
     async function handleSubmit () {
       try {
         toast.clear()
         state.isLoading = true
-        const { data, errors } = await services.auth.login({
+
+        const { errors } = await services.auth.register({
+          name: state.name.value,
           email: state.email.value,
           password: state.password.value
         })
 
         if (!errors) {
-          window.localStorage.setItem('token', data.token)
-          router.push({ name: 'Feedbacks' })
-          state.isLoading = false
-          modal.close()
+          await login({
+            email: state.email.value,
+            password: state.password.value
+          })
           return
         }
 
-        if (errors.status === 404) {
-          toast.error('E-mail não encontrato')
-        }
-
-        if (errors.status === 401) {
-          toast.error('E-mail/Senha inválidos')
-        }
-
         if (errors.status === 400) {
-          toast.error('Ocorreu error ao efetuar Login.')
+          toast.error('Ocorreu error ao criar a conta.')
         }
 
         state.isLoading = false
       } catch (error) {
         state.isLoading = false
         state.hasErros = !!error
-        toast.error('Ocorreu error ao efetuar Login.')
+        toast.error('Ocorreu error ao criar a conta.')
       }
     }
 
