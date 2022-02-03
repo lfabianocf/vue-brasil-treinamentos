@@ -108,17 +108,17 @@ export default {
 
     const {
       value: nameValue,
-      errorMessage: nameErroMessage
+      errorMessage: nameErrorMessage
     } = useField('name', validateEmptyAndLength3)
 
     const {
       value: emailValue,
-      errorMessage: emailErroMessage
+      errorMessage: emailErrorMessage
     } = useField('email', validateEmptyAndEmail)
 
     const {
       value: passwordlValue,
-      errorMessage: passwordErroMessage
+      errorMessage: passwordErrorMessage
     } = useField('password', validateEmptyAndLength3)
 
     const state = reactive({
@@ -126,15 +126,15 @@ export default {
       isLoading: false,
       name: {
         value: nameValue,
-        errorMessage: nameErroMessage
+        errorMessage: nameErrorMessage
       },
       email: {
         value: emailValue,
-        errorMessage: emailErroMessage
+        errorMessage: emailErrorMessage
       },
       password: {
         value: passwordlValue,
-        errorMessage: passwordErroMessage
+        errorMessage: passwordErrorMessage
       }
     })
 
