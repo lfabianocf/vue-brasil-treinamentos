@@ -132,6 +132,7 @@ export default {
         errorMessage: passwordErrorMessage
       }
     })
+
     async function login ({ email, password }) {
       const { data, errors } = await services.auth.login({ email, password })
       if (!errors) {
@@ -141,15 +142,18 @@ export default {
       }
       state.isLoading = false
     }
+
     async function handleSubmit () {
       try {
         toast.clear()
         state.isLoading = true
+
         const { errors } = await services.auth.register({
           name: state.name.value,
           email: state.email.value,
           password: state.password.value
         })
+
         if (!errors) {
           await login({
             email: state.email.value,
@@ -157,9 +161,11 @@ export default {
           })
           return
         }
+
         if (errors.status === 400) {
           toast.error('Ocorreu error ao criar a conta.')
         }
+
         state.isLoading = false
       } catch (error) {
         state.isLoading = false
