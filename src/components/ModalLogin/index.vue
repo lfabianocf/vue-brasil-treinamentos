@@ -62,7 +62,7 @@
         class="px-8 py-3 mt-10 text-2xl font-bold text-white rounded-full bg-brand-main focus:lg:outline-none transition-all duration-150"
       >
       <icon v-if="state.isLoading" name="loading" class="animate-spin" />
-      <spon v-else>Entrar</spon>
+      <span v-else>Entrar</span>
       </button>
 
     </form>
