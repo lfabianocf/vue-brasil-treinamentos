@@ -15,6 +15,7 @@
 
 <script>
 import HeaderLogged from '../../components/HeaderLogged'
+
 export default {
   components: { HeaderLogged }
 }
