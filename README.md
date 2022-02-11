@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # dashboard
 
 ## Project setup
@@ -32,3 +33,7 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+=======
+# vue-brasil-treinamentos
+Treinamento com framework Vue3  comunidade Vue Brasil
+>>>>>>> 3aaf6d64f913e25e02191f82772cf962e1fa5454
