@@ -9,12 +9,31 @@
       Detalhes de todos os feedbacks recebidos!
     </p>
   </div>
+  <div class="flex justify-center w-full pb-20">
+    <div class="w-4/5 max-w-6xl py-10 grid grid-cols-4 gap-2">
+      <div>
+        <h1 class="text-3xl font-black text-brand-darkgray">
+        Listagem
+        </h1>
+        <suspense>
+        <template #default>
+          <filters />
+         </template>
+        <template #fallback>
+          loading...
+         </template>
+        </suspense>
+      </div>
+      <div class="px-10 pt-20 col-span-3">items do filtros</div>
+    </div>
+  </div>
 </template>
 
 <script>
+import Filters from './filters'
 import HeaderLogged from '../../components/HeaderLogged'
 export default {
-  components: { HeaderLogged }
+  components: { HeaderLogged, Filters }
 }
 </script>
 
