@@ -3,6 +3,7 @@
   <h1 class="text-2xl font-regular text-brand-darkgray">
     Filtros
    </h1>
+
    <ul class="flex flex-col mt-3 list-none">
     <li
     v-for="filter in state.filters"
@@ -15,13 +16,12 @@
     >
         <div class="flex items-center">
         <span
-        :class="`bg-$filter.color`"
-        class="inline-block w-2 h-2 mr-2 rounded-full">
+        :class="`bg-${filter.color}`"
+        class="inline-block w-2 h-2 mr-2 rounded-full"/>
         {{ filter.label }}
-        </span>
         </div>
-        <span
-        :class="filter.active ? `text-${filter.COLORS}` : 'text-brand-gray' "
+         <span
+        :class="filter.active ? `text-${filter.color}` : 'text-brand-graydark'"
         class="font-bold"
         >
         {{ filter.amount }}
@@ -91,7 +91,7 @@ export default {
         return
       }
       state.filters = state.filters.map((filter) => {
-        if (filter.tyoe === type) {
+        if (filter.type === type) {
           return { ...filter, active: true }
         }
         return { ...filter, active: false }
