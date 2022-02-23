@@ -1,13 +1,13 @@
 <template>
   <div
-    @click="handledToggle"
+    @click="handleToggle"
     class="flex flex-col px-8 py-6 rounded cursor-pointer bg-brand-gray">
-      <div class="flex items-center justify-between w-full mb-8">
-        <badge :type="feedback.type" />
+    <div class="flex items-center justify-between w-full mb-8">
+      <badge :type="feedback.type" />
 
-        <span class="font-regular text-brand-graydark">
-          {{ feedback.createdAt }}
-        </span>
+      <span class="font-regular text-brand-graydark">
+        {{ feedback.createdAt }}
+      </span>
       </div>
 
   </div>
@@ -21,11 +21,11 @@ export default {
     feedback: { type: Object, required: true }
   },
   setup () {
-    function handledToggle () {
+    function handleToggle () {
 
     }
     return {
-      handledToggle
+      handleToggle
     }
   }
 }
