@@ -16,24 +16,28 @@
         Listagem
         </h1>
         <suspense>
-        <template #default>
-          <filters />
-         </template>
-        <template #fallback>
-          loading...
-         </template>
+          <template #default>
+            <filters
+            class="mt-6 animate__animated animate__fadeIn animate__faster"
+             />
+          </template>
+          <template #fallback>
+            <filters-loading class="mt-8" />
+          </template>
         </suspense>
       </div>
-      <div class="px-10 pt-20 col-span-3">items do filtros</div>
+      <div class="px-10 pt-20 col-span-3">Filtros</div>
     </div>
   </div>
 </template>
 
 <script>
-import Filters from './filters'
+import Filters from './Filters'
+import FiltersLoading from './FiltersLoading'
 import HeaderLogged from '../../components/HeaderLogged'
+
 export default {
-  components: { HeaderLogged, Filters }
+  components: { HeaderLogged, Filters, FiltersLoading }
 }
 </script>
 

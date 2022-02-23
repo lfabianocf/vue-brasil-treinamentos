@@ -20,8 +20,8 @@
         class="inline-block w-2 h-2 mr-2 rounded-full"> </span> {{ filter.label}}
       </div>
       <span
-        :class="filter.active ? `text-${filter.color}` : 'text-brand-graudark'"
-        class="font-regular"
+        :class="filter.active ? filter.color.text : 'text-brand-graydark'"
+        class="font-bold"
       >
       {{ filter.amount }}
       </span>
@@ -89,14 +89,17 @@ export default {
       if (store.isLoading) {
         return
       }
+
       state.filters = state.filters.map((filter) => {
         if (filter.type === type) {
           return { ...filter, active: true }
         }
         return { ...filter, active: false }
       })
+
       emit('select', type)
     }
+
     return {
       state,
       handleSelect
